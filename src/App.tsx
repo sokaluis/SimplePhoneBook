@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Grid } from "@mui/material";
+import Contacts from "./components/Contacts";
+import { FormContact } from "./components/FormContact";
+import { AppProvider } from "./context/AppContext";
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppProvider>
+      <Grid container>
+        <Grid item xs={6}>
+          <FormContact />
+        </Grid>
+        <Grid item xs={6}>
+          <Contacts />
+        </Grid>
+      </Grid>
+    </AppProvider>
   );
-}
+};
 
 export default App;
