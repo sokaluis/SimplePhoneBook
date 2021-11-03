@@ -1,12 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  FormControl,
-  Input,
-  InputAdornment,
-  InputLabel,
-} from "@mui/material";
+import { Box, FormControl, InputAdornment, OutlinedInput } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import { useDebounceValue } from "../hooks/useDebounceValue";
 
@@ -23,15 +17,13 @@ const SearchInput = ({ onDebounce }: Props) => {
   }, [debounceValue]);
 
   return (
-    <Box>
-      <FormControl variant="standard">
-        <InputLabel htmlFor="input-with-icon-adornment">
-          With a start adornment
-        </InputLabel>
-        <Input
-          id="input-with-icon-adornment"
+    <Box sx={{ width: "100%" }}>
+      <FormControl variant="filled" sx={{ width: "100%" }}>
+        <OutlinedInput
+          fullWidth
+          type="text"
           startAdornment={
-            <InputAdornment position="start">
+            <InputAdornment position="end">
               <Search />
             </InputAdornment>
           }

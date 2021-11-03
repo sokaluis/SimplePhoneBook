@@ -6,23 +6,25 @@ import {
   Box,
   CircularProgress,
   Container,
-  Divider,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
   Typography,
+  Stack,
+  IconButton,
 } from "@mui/material";
 import SearchInput from "./SearchInput";
 import { IContact } from "../context/AppContext";
+import { makeStyles } from "@mui/styles";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 const Contacts = () => {
+  const styles = useStyles();
   const { contactList, isFetching } = useSearchContact();
   const [term, setTerm] = useState("");
   const [contacFiltered, setContacFiltered] = useState<IContact[]>(contactList);
-
-  console.log("term", term.length);
-  console.log("contacFiltered antes", contacFiltered);
 
   useEffect(() => {
     if (term.length === 0) {
@@ -37,7 +39,7 @@ const Contacts = () => {
     if (isNaN(Number(term))) {
       setContacFiltered(
         contactList.filter((item) =>
-          item.firstName.toLocaleLowerCase().includes(term.toLocaleLowerCase())
+          item.fullName.toLocaleLowerCase().includes(term.toLocaleLowerCase())
         )
       );
     } else {
@@ -47,9 +49,9 @@ const Contacts = () => {
   }, [term]);
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" className={styles.container}>
       <Typography variant="h5" gutterBottom component="div">
-        Your Contacts
+        Contacts
       </Typography>
       <SearchInput onDebounce={setTerm} />
       {isFetching ? (
@@ -60,32 +62,44 @@ const Contacts = () => {
         <List sx={{ width: "100%" }}>
           {contacFiltered
             .map((item) => (
-              <div key={item.id}>
-                <ListItem alignItems="flex-start">
-                  <ListItemAvatar>
-                    <Avatar
-                      alt={item.firstName}
-                      src="/static/images/avatar/1.jpg"
-                    />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={`${item.firstName} ${item.lastName}`}
-                    secondary={
-                      <React.Fragment>
-                        <Typography
-                          sx={{ display: "inline" }}
-                          component="span"
-                          variant="body2"
-                          color="text.primary"
-                        >
-                          {item.phone}
-                        </Typography>
-                      </React.Fragment>
-                    }
+              <ListItem
+                key={item.id}
+                alignItems="flex-start"
+                sx={{
+                  backgroundColor: "#193c56",
+                  color: "#FFF",
+                  marginBottom: "1rem",
+                }}
+              >
+                <ListItemAvatar>
+                  <Avatar
+                    alt={item.firstName}
+                    src="/static/images/avatar/1.jpg"
                   />
-                </ListItem>
-                <Divider variant="inset" component="li" />
-              </div>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={`${item.firstName} ${item.lastName}`}
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        sx={{ display: "inline", color: "#FFF" }}
+                        component="span"
+                        variant="body2"
+                      >
+                        {item.phone}
+                      </Typography>
+                    </React.Fragment>
+                  }
+                />
+                <Stack direction="row" spacing={1} mt={1}>
+                  <IconButton sx={{ color: "#FFF" }} aria-label="delete">
+                    <DeleteIcon />
+                  </IconButton>
+                  <IconButton sx={{ color: "#FFF" }} aria-label="delete">
+                    <EditIcon />
+                  </IconButton>
+                </Stack>
+              </ListItem>
             ))
             .reverse()}
         </List>
@@ -93,5 +107,9 @@ const Contacts = () => {
     </Container>
   );
 };
+
+const useStyles = makeStyles({
+  container: {},
+});
 
 export default Contacts;

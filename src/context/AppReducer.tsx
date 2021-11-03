@@ -15,6 +15,7 @@ export const AppReducer = (state: IAppState, action: AppActions) => {
           ...state.contacts,
           action.payload.contact
         ],
+        dateAdded: new Date(),
       };
 
     default:

@@ -1,20 +1,29 @@
-import { Grid } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
+import { AppProvider } from "./context/AppContext";
 import Contacts from "./components/Contacts";
 import { FormContact } from "./components/FormContact";
-import { AppProvider } from "./context/AppContext";
 
 const App = () => {
   return (
     <AppProvider>
       <Grid container>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
+          <Container maxWidth="sm">
+            <Typography
+              variant="h2"
+              gutterBottom
+              component="div"
+              align="center"
+            >
+              My Phone Book
+            </Typography>
+          </Container>
+        </Grid>
+        <Grid item xs={12}>
           <FormContact />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <Contacts />
-        </Grid>
-        <Grid item xs={6}>
-          
         </Grid>
       </Grid>
     </AppProvider>

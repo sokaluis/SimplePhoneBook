@@ -6,12 +6,13 @@ export interface IContact {
   id: string;
   firstName: string;
   lastName: string;
+  fullName: string;
   phone: number;
 }
 
 export interface IAppState {
   contacts: IContact[];
-  dateAdded: string;
+  dateAdded: Date;
 }
 
 interface IAppContext {
@@ -25,18 +26,45 @@ export const AppInitialState: IAppState = {
       id: uniqid(),
       firstName: "Luis",
       lastName: "Azocar",
+      fullName: "Luis Azocar",
+      phone: 1134837364,
+    },
+    {
+      id: uniqid(),
+      firstName: "Luis",
+      lastName: "Azocar",
+      fullName: "Luis Azocar",
+      phone: 1134837364,
+    },
+    {
+      id: uniqid(),
+      firstName: "Luis",
+      lastName: "Azocar",
+      fullName: "Luis Azocar",
+      phone: 1134837364,
+    },
+    {
+      id: uniqid(),
+      firstName: "Luis",
+      lastName: "Azocar",
+      fullName: "Luis Azocar",
+      phone: 1134837364,
+    },
+    {
+      id: uniqid(),
+      firstName: "Luis",
+      lastName: "Azocar",
+      fullName: "Luis Azocar",
       phone: 1134837364,
     },
   ],
-  dateAdded: "",
+  dateAdded: new Date(),
 };
 
 export const AppContext = createContext({} as IAppContext);
 
 export const AppProvider = ({ children }: { children: JSX.Element }) => {
   const [state, dispatch] = useReducer(AppReducer, AppInitialState);
-
-  console.log("state", state);
 
   const addNewContact = (contact: IContact) => {
     dispatch({
