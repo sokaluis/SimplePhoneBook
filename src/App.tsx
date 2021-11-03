@@ -13,6 +13,9 @@ const App = () => {
         <Grid item xs={6}>
           <Contacts />
         </Grid>
+        <Grid item xs={6}>
+          
+        </Grid>
       </Grid>
     </AppProvider>
   );

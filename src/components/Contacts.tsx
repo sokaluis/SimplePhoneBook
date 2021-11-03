@@ -1,7 +1,10 @@
-import React, { useContext } from "react";
-import { AppContext } from "../context/AppContext";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
+import { useSearchContact } from "../hooks/useSearchContact";
 import {
   Avatar,
+  Box,
+  CircularProgress,
   Container,
   Divider,
   List,
@@ -10,59 +13,83 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+import SearchInput from "./SearchInput";
+import { IContact } from "../context/AppContext";
 
 const Contacts = () => {
-  const { state } = useContext(AppContext);
-  console.log("state", state);
+  const { contactList, isFetching } = useSearchContact();
+  const [term, setTerm] = useState("");
+  const [contacFiltered, setContacFiltered] = useState<IContact[]>(contactList);
+
+  console.log("term", term.length);
+  console.log("contacFiltered antes", contacFiltered);
+
+  useEffect(() => {
+    if (term.length === 0) {
+      setContacFiltered(contactList);
+    }
+  }, [contactList]);
+
+  useEffect(() => {
+    if (term.length === 0) {
+      return setContacFiltered(contactList);
+    }
+    if (isNaN(Number(term))) {
+      setContacFiltered(
+        contactList.filter((item) =>
+          item.firstName.toLocaleLowerCase().includes(term.toLocaleLowerCase())
+        )
+      );
+    } else {
+      const contacNumber = contactList.find((item) => item.id === term);
+      setContacFiltered(contacNumber ? [contacNumber] : []);
+    }
+  }, [term]);
+
   return (
     <Container maxWidth="sm">
       <Typography variant="h5" gutterBottom component="div">
         Your Contacts
       </Typography>
-      <List sx={{ width: "100%" }}>
-        <ListItem alignItems="flex-start">
-          <ListItemAvatar>
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Brunch this weekend?"
-            secondary={
-              <React.Fragment>
-                <Typography
-                  sx={{ display: "inline" }}
-                  component="span"
-                  variant="body2"
-                  color="text.primary"
-                >
-                  Ali Connors
-                </Typography>
-              </React.Fragment>
-            }
-          />
-        </ListItem>
-        <Divider variant="inset" component="li" />
-        <ListItem alignItems="flex-start">
-          <ListItemAvatar>
-            <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-          </ListItemAvatar>
-          <ListItemText
-            primary="Summer BBQ"
-            secondary={
-              <React.Fragment>
-                <Typography
-                  sx={{ display: "inline" }}
-                  component="span"
-                  variant="body2"
-                  color="text.primary"
-                >
-                  to Scott, Alex, Jennifer
-                </Typography>
-                {" — Wish I could come, but I'm out of town this…"}
-              </React.Fragment>
-            }
-          />
-        </ListItem>
-      </List>
+      <SearchInput onDebounce={setTerm} />
+      {isFetching ? (
+        <Box sx={{ display: "flex" }}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <List sx={{ width: "100%" }}>
+          {contacFiltered
+            .map((item) => (
+              <div key={item.id}>
+                <ListItem alignItems="flex-start">
+                  <ListItemAvatar>
+                    <Avatar
+                      alt={item.firstName}
+                      src="/static/images/avatar/1.jpg"
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={`${item.firstName} ${item.lastName}`}
+                    secondary={
+                      <React.Fragment>
+                        <Typography
+                          sx={{ display: "inline" }}
+                          component="span"
+                          variant="body2"
+                          color="text.primary"
+                        >
+                          {item.phone}
+                        </Typography>
+                      </React.Fragment>
+                    }
+                  />
+                </ListItem>
+                <Divider variant="inset" component="li" />
+              </div>
+            ))
+            .reverse()}
+        </List>
+      )}
     </Container>
   );
 };

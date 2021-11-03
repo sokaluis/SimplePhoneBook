@@ -11,8 +11,8 @@ export const AppReducer = (state: IAppState, action: AppActions) => {
     case "ADD_CONTACT":
       return {
         ...state,
-        contact: [
-          ...state.contact,
+        contacts: [
+          ...state.contacts,
           action.payload.contact
         ],
       };

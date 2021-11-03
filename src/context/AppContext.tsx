@@ -1,15 +1,16 @@
 import { createContext, useReducer } from "react";
 import { AppReducer } from "./AppReducer";
+import uniqid from "uniqid";
 
 export interface IContact {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
   phone: number;
 }
 
 export interface IAppState {
-  contact: IContact[];
+  contacts: IContact[];
   dateAdded: string;
 }
 
@@ -19,7 +20,14 @@ interface IAppContext {
 }
 
 export const AppInitialState: IAppState = {
-  contact: [],
+  contacts: [
+    {
+      id: uniqid(),
+      firstName: "Luis",
+      lastName: "Azocar",
+      phone: 1134837364,
+    },
+  ],
   dateAdded: "",
 };
 
@@ -27,6 +35,8 @@ export const AppContext = createContext({} as IAppContext);
 
 export const AppProvider = ({ children }: { children: JSX.Element }) => {
   const [state, dispatch] = useReducer(AppReducer, AppInitialState);
+
+  console.log("state", state);
 
   const addNewContact = (contact: IContact) => {
     dispatch({
