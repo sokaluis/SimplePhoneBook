@@ -14,7 +14,7 @@ export const useSearchContact = () => {
     setTimeout(() => {
       setContactList(contacts);
       setIsFetching(false);
-    }, 1000);
+    }, 2000);
   }, [contactList, contacts]);
 
   return {

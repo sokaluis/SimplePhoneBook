@@ -55,7 +55,7 @@ const Contacts = () => {
       </Typography>
       <SearchInput onDebounce={setTerm} />
       {isFetching ? (
-        <Box sx={{ display: "flex" }}>
+        <Box sx={{ display: "flex", flex: 1, justifyContent: 'center' }} mt={5}>
           <CircularProgress />
         </Box>
       ) : (
@@ -68,7 +68,7 @@ const Contacts = () => {
                 sx={{
                   backgroundColor: "#193c56",
                   color: "#FFF",
-                  marginBottom: "1rem",
+                  margin: "1rem 0",
                 }}
               >
                 <ListItemAvatar>

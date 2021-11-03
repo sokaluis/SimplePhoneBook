@@ -7,7 +7,7 @@ const App = () => {
   return (
     <AppProvider>
       <Grid container>
-        <Grid item xs={12}>
+        <Grid item xs={12} mt={2}>
           <Container maxWidth="sm">
             <Typography
               variant="h2"
