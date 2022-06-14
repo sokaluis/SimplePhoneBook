@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from "react";
-import { IContact, AppContext } from "../context/AppContext";
+import { IContact, AppContext } from "context/AppContext";
 
 export const useSearchContact = () => {
   const {

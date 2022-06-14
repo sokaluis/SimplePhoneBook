@@ -1,7 +1,7 @@
 import { Container, Grid, Typography } from "@mui/material";
-import { AppProvider } from "./context/AppContext";
-import Contacts from "./components/Contacts";
-import { FormContact } from "./components/FormContact";
+import { AppProvider } from "context/AppContext";
+import Contacts from "components/Contacts";
+import { FormContact } from "components/FormContact";
 
 const App = () => {
   return (

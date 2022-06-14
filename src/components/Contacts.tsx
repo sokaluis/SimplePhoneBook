@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { useSearchContact } from "../hooks/useSearchContact";
+import { useSearchContact } from "hooks/useSearchContact";
 import {
   Avatar,
   Box,
@@ -15,16 +15,19 @@ import {
   IconButton,
 } from "@mui/material";
 import SearchInput from "./SearchInput";
-import { IContact } from "../context/AppContext";
+import { IContact } from "context/AppContext";
 import { makeStyles } from "@mui/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { AppInitialState } from "context/AppContext";
 
 const Contacts = () => {
   const styles = useStyles();
   const { contactList, isFetching } = useSearchContact();
   const [term, setTerm] = useState("");
   const [contacFiltered, setContacFiltered] = useState<IContact[]>(contactList);
+
+  console.log({ AppInitialState });
 
   useEffect(() => {
     if (term.length === 0) {
@@ -55,7 +58,7 @@ const Contacts = () => {
       </Typography>
       <SearchInput onDebounce={setTerm} />
       {isFetching ? (
-        <Box sx={{ display: "flex", flex: 1, justifyContent: 'center' }} mt={5}>
+        <Box sx={{ display: "flex", flex: 1, justifyContent: "center" }} mt={5}>
           <CircularProgress />
         </Box>
       ) : (

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, FormControl, InputAdornment, OutlinedInput } from "@mui/material";
 import Search from "@mui/icons-material/Search";
-import { useDebounceValue } from "../hooks/useDebounceValue";
+import { useDebounceValue } from "hooks/useDebounceValue";
 
 interface Props {
   onDebounce: (value: string) => void;

@@ -11,7 +11,7 @@ import {
   Modal,
   Grid,
 } from "@mui/material";
-import { IContact, AppContext } from "../context/AppContext";
+import { IContact, AppContext } from "context/AppContext";
 import PlusOne from "@mui/icons-material/PlusOne";
 
 const style = {
@@ -73,7 +73,7 @@ export const FormContact = () => {
 
   return (
     <Container maxWidth="sm">
-      <Grid sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
           variant="contained"
           size="large"
